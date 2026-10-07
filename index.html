@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homelab Assistant · Jack Coates</title>
+<meta name="description" content="A Claude-powered operations assistant that watches infrastructure, sends a daily briefing and handles routine IT tasks over Telegram.">
+<style>
+:root { --bg:#f7f6f2; --card:#ffffff; --ink:#1b1f24; --ink2:#566069; --line:#dedcd4; --accent:#244c73; --soft:#eaf0f6; }
+@media (prefers-color-scheme: dark) { :root { --bg:#12151a; --card:#1a1e25; --ink:#ebe9e3; --ink2:#a3a9b1; --line:#2b3039; --accent:#8bb6e4; --soft:#1d2733; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.6 system-ui, "Segoe UI", Roboto, sans-serif; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+header.top { border-bottom: 1px solid var(--line); }
+header.top .wrap { display:flex; justify-content:space-between; align-items:center; padding-block:16px; }
+.brand { font-weight: 650; letter-spacing: .01em; }
+nav a { color: var(--ink2); text-decoration: none; margin-left: 18px; font-size: .95rem; }
+nav a:hover { color: var(--accent); }
+.hero { padding: 64px 0 40px; }
+h1 { font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.15; margin: 0 0 16px; text-wrap: balance; }
+.lede { font-size: 1.2rem; color: var(--ink2); max-width: 62ch; margin: 0 0 24px; }
+.btn { display:inline-block; background: var(--accent); color:#fff; padding: 11px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+@media (prefers-color-scheme: dark) { .btn { color:#10161c; } }
+section { padding: 34px 0; border-top: 1px solid var(--line); }
+h2 { font-size: 1.45rem; margin: 0 0 18px; }
+.grid { display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.card { background: var(--card); border:1px solid var(--line); border-radius: 12px; padding: 18px; }
+.card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.card p { margin: 0; color: var(--ink2); font-size: .98rem; }
+.flow { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin: 6px 0 12px; }
+.node { background: var(--soft); border:1px solid var(--line); border-radius: 10px; padding: 10px 14px; font-weight: 600; font-size: .95rem; }
+.arrow { color: var(--ink2); }
+ul.plain { margin: 0; padding-left: 20px; color: var(--ink2); }
+ul.plain li { margin-bottom: 6px; }
+footer { padding: 32px 0 56px; color: var(--ink2); font-size: .95rem; border-top: 1px solid var(--line); }
+a { color: var(--accent); }
+.tag { display:inline-block; font-size:.8rem; color:var(--ink2); border:1px solid var(--line); border-radius:99px; padding:1px 10px; margin-right:6px; }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">Homelab Assistant</div>
+  <nav><a href="#what">What it does</a><a href="#claude">How Claude is used</a><a href="#how">How it works</a><a href="#contact">Contact</a></nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero" style="border-top:0">
+    <p><span class="tag">In daily use</span><span class="tag">Built on Claude</span><span class="tag">Self-funded</span></p>
+    <h1>An operations assistant that watches your systems and answers on Telegram.</h1>
+    <p class="lede">Homelab Assistant is a Claude-powered tool I built to run my own servers and small IT-support tasks. It checks that sites, certificates, backups and machines are healthy, sends a short daily briefing, and takes plain-English requests from a chat window.</p>
+    <a class="btn" href="#contact">Get in touch</a>
+  </section>
+
+  <section id="what">
+    <h2>What it does</h2>
+    <div class="grid">
+      <div class="card"><h3>Watches infrastructure</h3><p>Regular checks on websites, SSL certificates, domain expiry, disk and memory, containers and backups. A problem becomes a message, not a surprise.</p></div>
+      <div class="card"><h3>Daily briefing</h3><p>Each morning it sends one summary: overnight alerts, system health and anything that needs a decision.</p></div>
+      <div class="card"><h3>Answers questions</h3><p>Ask "what is the status?" or "why did that alert fire?" in plain English over Telegram and get an answer based on live data.</p></div>
+      <div class="card"><h3>Handles routine IT tasks</h3><p>Helps triage helpdesk tickets, drafts replies for review, and prepares routine changes. A person approves anything that changes a system.</p></div>
+    </div>
+  </section>
+
+  <section id="claude">
+    <h2>How Claude is used</h2>
+    <ul class="plain">
+      <li><strong>Reasoning over alerts.</strong> Claude reads the raw output of the checks and explains what is wrong and what to do next.</li>
+      <li><strong>Conversation.</strong> Claude is the layer that turns a short chat message into the right checks and tools.</li>
+      <li><strong>Drafting and review.</strong> Claude writes summaries and ticket replies, and reviews changes and code before they are used.</li>
+      <li><strong>Built with Claude Code.</strong> Much of the assistant's own tooling is written, tested and reviewed with Claude Code.</li>
+    </ul>
+  </section>
+
+  <section id="how">
+    <h2>How it works</h2>
+    <div class="flow">
+      <span class="node">Telegram message</span><span class="arrow">→</span>
+      <span class="node">Claude</span><span class="arrow">→</span>
+      <span class="node">Checks and tools</span><span class="arrow">→</span>
+      <span class="node">Answer or alert</span>
+    </div>
+    <p style="color:var(--ink2);margin:0">Scheduled checks run on small always-on machines. Results flow back through the same chat, so there is one place to look. Secrets stay on the servers, and actions that change something need explicit approval.</p>
+  </section>
+
+  <section id="status">
+    <h2>Status</h2>
+    <ul class="plain">
+      <li>Running continuously since 2026 on my own hardware.</li>
+      <li>Built and used by one person (me), for my own infrastructure and small IT-support work.</li>
+      <li>Pre-revenue and self-funded. Not yet a commercial product.</li>
+    </ul>
+  </section>
+</main>
+
+<footer id="contact"><div class="wrap">
+  <strong>Jack Coates</strong>, developer and Computer Science student, University of Huddersfield.<br>
+  Email: <a href="mailto:jack@jackcoates.co.uk">jack@jackcoates.co.uk</a> · <a href="https://jackcoates.co.uk">jackcoates.co.uk</a>
+</div></footer>
+</body>
+</html>
